@@ -42,7 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColorButton.cs" />
     <Compile Include="ColorName.cs" />
+    <Compile Include="IResources.cs" />
+    <Compile Include="Resources.cs" />
     <Compile Include="ScreenPalette.cs" />
     <Compile Include="Palette.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

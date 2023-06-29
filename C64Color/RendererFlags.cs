@@ -7,8 +7,7 @@ namespace C64Color
     {
         None = 0,
         Outline = 1,
-        Gradient = 2,
-        Selected = 4,
-        Shadow = 8
+        Selected = 2,
+        Shadow = 4
     }
 }

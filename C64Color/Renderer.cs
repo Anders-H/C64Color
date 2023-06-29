@@ -18,8 +18,8 @@ namespace C64Color
 
             if (flags.HasFlag(RendererFlags.Shadow))
             {
-                    g.FillRectangle(resources.GetShadowBrush(), location.X + 2, location.Y + 2, location.Width, location.Height);
-                    g.FillRectangle(resources.GetShadowBrush(), location.X + 1, location.Y + 1, location.Width + 2, location.Height + 2);
+                g.FillRectangle(resources.GetShadowBrush(), location.X + 2, location.Y + 2, location.Width, location.Height);
+                g.FillRectangle(resources.GetShadowBrush(), location.X + 1, location.Y + 1, location.Width + 2, location.Height + 2);
             }
 
             g.FillRectangle(resources.GetColorBrush(color), location);

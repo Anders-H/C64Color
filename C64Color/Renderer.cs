@@ -5,13 +5,6 @@ namespace C64Color
 {
     public class Renderer
     {
-        private readonly Palette _palette;
-
-        public Renderer()
-        {
-            _palette = new Palette();
-        }
-
         public void Render(Graphics g, IResources resources, Rectangle location, ColorName color, RendererFlags flags)
         {
             g.SmoothingMode = SmoothingMode.None;

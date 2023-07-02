@@ -1,8 +1,9 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace C64Color
 {
-    public interface IResources
+    public interface IResources : IDisposable
     {
         SolidBrush GetColorBrush(ColorName color);
         SolidBrush GetShadowBrush();

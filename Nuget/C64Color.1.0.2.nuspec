@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>C64Color</id>
+    <version>1.0.2</version>
+    <title>C64 Color</title>
+    <authors>Anders Hesselbom</authors>
+    <owners></owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/Anders-H/C64Color</projectUrl>
+    <description>A break out of the color related classes for the C64.</description>
+    <releaseNotes>Versioning.</releaseNotes>
+    <copyright>Anders Hesselbom</copyright>
+  </metadata>
+  <files>
+    <file src="lib\net48\C64Color.dll" target="lib\net48\C64Color.dll" />
+  </files>
+</package>

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Drawing;
-using System.Drawing.Drawing2D;
+﻿using System.Drawing;
 
 namespace C64Color
 {
-    public class Resources : IResources, IDisposable
+    public class Resources : IResources
     {
         private readonly SolidBrush[] _solids;
         private readonly SolidBrush _shadowBrush;

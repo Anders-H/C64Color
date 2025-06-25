@@ -24,5 +24,10 @@ namespace C64Color
 
         public int ButtonCount =>
             _colorButtons.Length;
+
+        public void Render(Graphics g, IResources resources)
+        {
+
+        }
     }
 }

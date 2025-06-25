@@ -5,7 +5,7 @@ namespace C64Color
     public class ColorButton
     {
         private readonly Renderer _renderer;
-        public Rectangle Location { get; }
+        public Rectangle Location { get; set; }
         public ColorName Color { get; set; }
         public bool Selected { get; set; }
 
@@ -18,6 +18,9 @@ namespace C64Color
 
         public bool HitTest(Point point) =>
              Location.IntersectsWith(new Rectangle(point.X, point.Y, 1, 1));
+
+        public bool HitTest(int x, int y) =>
+            Location.IntersectsWith(new Rectangle(x, y, 1, 1));
 
         public void Render(Graphics g, IResources resources)
         {

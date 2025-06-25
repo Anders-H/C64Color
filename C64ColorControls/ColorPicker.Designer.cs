@@ -1,6 +1,6 @@
-﻿namespace TestProgram
+﻿namespace C64ColorControls
 {
-    partial class Form1
+    partial class ColorPicker
     {
         /// <summary>
         /// Required designer variable.
@@ -20,43 +20,31 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        #region Component Designer generated code
 
         /// <summary>
-        /// Required method for Designer support - do not modify
+        /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            this.colorPicker1 = new C64ColorControls.ColorPicker();
             this.SuspendLayout();
             // 
-            // colorPicker1
-            // 
-            this.colorPicker1.Location = new System.Drawing.Point(556, 12);
-            this.colorPicker1.MultiColor = false;
-            this.colorPicker1.Name = "colorPicker1";
-            this.colorPicker1.Size = new System.Drawing.Size(224, 48);
-            this.colorPicker1.TabIndex = 0;
-            // 
-            // Form1
+            // ColorPicker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.colorPicker1);
             this.DoubleBuffered = true;
-            this.Name = "Form1";
-            this.Text = "Form1";
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
-            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseClick);
+            this.Name = "ColorPicker";
+            this.Size = new System.Drawing.Size(341, 161);
+            this.Load += new System.EventHandler(this.ColorPicker_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.ColorPicker_Paint);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ColorPicker_MouseClick);
+            this.Resize += new System.EventHandler(this.ColorPicker_Resize);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private C64ColorControls.ColorPicker colorPicker1;
     }
 }
-

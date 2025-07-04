@@ -1,13 +1,13 @@
-﻿using System;
+﻿#nullable enable
+using System;
 
-namespace C64Color
+namespace C64Color;
+
+[Flags]
+public enum RendererFlags
 {
-    [Flags]
-    public enum RendererFlags
-    {
-        None = 0,
-        Outline = 1,
-        Selected = 2,
-        Shadow = 4
-    }
+    None = 0,
+    Outline = 1,
+    Selected = 2,
+    Shadow = 4
 }

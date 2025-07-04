@@ -8,8 +8,8 @@ namespace C64ColorControls;
 
 public partial class ColorPicker: UserControl
 {
-    private static readonly Renderer Renderer;
-    private static readonly IResources Resources;
+    internal static readonly Renderer Renderer;
+    internal static readonly IResources Resources;
     private ColorButton? _button0;
     private ColorButton? _button1;
     private ColorButton? _button2;
@@ -17,6 +17,7 @@ public partial class ColorPicker: UserControl
     private int _selectedButtonIndex;
 
     public event SelectedColorChangedDelegate? SelectedColorChanged;
+    public event PaletteChangedDelegate? PaletteChanged;
 
     private bool _multiColor;
     public bool MultiColor
@@ -36,13 +37,14 @@ public partial class ColorPicker: UserControl
 
             if (currentSelected != _selectedButtonIndex)
             {
-                var eventArgs = CreateColorButtonEventArgs();
+                var b = GetButton(_selectedButtonIndex);
 
-                if (eventArgs != null)
-                    SelectedColorChanged?.Invoke(this, eventArgs);
+                if (b != null)
+                    SelectButton(b, currentSelected, _selectedButtonIndex);
             }
             
             ReinitializeButtons();
+            PositionButtons();
         }
     }
 
@@ -72,6 +74,11 @@ public partial class ColorPicker: UserControl
 
     private void ColorPicker_Load(object sender, EventArgs e)
     {
+        _selectedButtonIndex = 1;
+
+        if (_button1 != null)
+            _button1.Selected = true;
+
         ReinitializeButtons();
         PositionButtons();
     }
@@ -141,46 +148,89 @@ public partial class ColorPicker: UserControl
     {
         if (e.Button == MouseButtons.Left)
         {
-            var currentSelected = _selectedButtonIndex;
+            SelectButtonFromCoordinates(e.X, e.Y);
+        }
+        else if (e.Button == MouseButtons.Right)
+        {
+            ColorButton? button = null;
+            var buttonIndex = -1;
 
             for (var i = 0; i < ButtonCount; i++)
             {
                 var b = GetButton(i);
 
-                if (b == null || !b.HitTest(e.X, e.Y))
+                if (b == null)
                     continue;
 
-                if (_button0 != null)
-                    _button0.Selected = false;
-
-                if (_button1 != null)
-                    _button1.Selected = false;
-
-                if (_button2 != null)
-                    _button2.Selected = false;
-
-                if (_button3 != null)
-                    _button3.Selected = false;
-
-                b.Selected = true;
-                _selectedButtonIndex = i;
-                Refresh();
-
-                if (currentSelected != _selectedButtonIndex)
+                if (b.HitTest(e.X, e.Y))
                 {
-                    var eventArgs = CreateColorButtonEventArgs();
-
-                    if (eventArgs != null)
-                        SelectedColorChanged?.Invoke(this, eventArgs);
+                    button = b;
+                    buttonIndex = i;
+                    break;
                 }
-
-                break;
             }
-        }
-        else if (e.Button == MouseButtons.Right)
-        {
 
+            if (button == null)
+                return;
+
+            var oldColor = button.Color;
+            using var dialog = new ColorPickerPaletteDialog();
+            dialog.ButtonIndex = buttonIndex;
+            dialog.CurrentColor = oldColor;
+
+            if (dialog.ShowDialog(this) != DialogResult.OK)
+                return;
+
+            if (dialog.CurrentColor == oldColor)
+                return;
+
+            button.Color = dialog.CurrentColor;
+            Refresh();
+            PaletteChanged?.Invoke(this, new ColorButtonEventArgs(buttonIndex, button.Color, button.Selected, MultiColor));
         }
+    }
+
+    private void SelectButtonFromCoordinates(int x, int y)
+    {
+        var currentSelected = _selectedButtonIndex;
+
+        for (var i = 0; i < ButtonCount; i++)
+        {
+            var b = GetButton(i);
+
+            if (b == null || !b.HitTest(x, y))
+                continue;
+
+            SelectButton(b, currentSelected, i);
+            break;
+        }
+    }
+
+    private void SelectButton(ColorButton b, int oldSelectedIndex, int newSelectedIndex)
+    {
+        if (_button0 != null)
+            _button0.Selected = false;
+
+        if (_button1 != null)
+            _button1.Selected = false;
+
+        if (_button2 != null)
+            _button2.Selected = false;
+
+        if (_button3 != null)
+            _button3.Selected = false;
+
+        b.Selected = true;
+        _selectedButtonIndex = newSelectedIndex;
+        Refresh();
+
+        if (oldSelectedIndex == _selectedButtonIndex)
+            return;
+
+        var eventArgs = CreateColorButtonEventArgs();
+
+        if (eventArgs != null)
+            SelectedColorChanged?.Invoke(this, eventArgs);
     }
 
     private ColorButtonEventArgs? CreateColorButtonEventArgs()

@@ -1,11 +1,11 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Drawing;
 
-namespace C64Color
+namespace C64Color;
+
+public interface IResources : IDisposable
 {
-    public interface IResources : IDisposable
-    {
-        SolidBrush GetColorBrush(ColorName color);
-        SolidBrush GetShadowBrush();
-    }
+    SolidBrush GetColorBrush(ColorName color);
+    SolidBrush GetShadowBrush();
 }

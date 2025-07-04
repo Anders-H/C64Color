@@ -59,6 +59,26 @@ public partial class ColorPicker: UserControl
         InitializeComponent();
     }
 
+    public void SetPalette(int index, ColorName color)
+    {
+        var b = GetButton(index);
+
+        if (b == null)
+            throw new ArgumentOutOfRangeException(nameof(index), @"Index must be between 0 and 1 in monochrome mode and 0 and 3 in multicolor mode.");
+
+        b.Color = color;
+    }
+
+    public ColorName GetPalette(int index)
+    {
+        var b = GetButton(index);
+
+        if (b == null)
+            throw new ArgumentOutOfRangeException(nameof(index), @"Index must be between 0 and 1 in monochrome mode and 0 and 3 in multicolor mode.");
+
+        return b.Color;
+    }
+
     private int ButtonCount =>
         MultiColor ? 4 : 2;
 

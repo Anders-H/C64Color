@@ -8,10 +8,10 @@ public class ColorButtonEventArgs : EventArgs
 {
     public int ButtonIndex { get; }
     public ColorName ColorName { get; }
-    public bool IsSelected { get; }
+    public ButtonSelected IsSelected { get; }
     public bool IsMultiColor { get; }
 
-    public ColorButtonEventArgs(int buttonIndex, ColorName colorName, bool isSelected, bool isMultiColor)
+    public ColorButtonEventArgs(int buttonIndex, ColorName colorName, ButtonSelected isSelected, bool isMultiColor)
     {
         ButtonIndex = buttonIndex;
         ColorName = colorName;

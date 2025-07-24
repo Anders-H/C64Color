@@ -6,7 +6,7 @@ namespace C64Color;
 
 public class Renderer
 {
-    public void Render(Graphics g, IResources resources, Rectangle location, ColorName color, RendererFlags flags)
+    public void Render(Graphics g, IResources resources, Rectangle location, ColorName color, RendererFlags flags, Bitmap? icon)
     {
         g.SmoothingMode = SmoothingMode.None;
 
@@ -32,5 +32,8 @@ public class Renderer
             g.DrawRectangle(Pens.Blue, location.X + 3, location.Y + 3, location.Width - 7, location.Height - 7);
             g.DrawRectangle(Pens.White, location.X + 4, location.Y + 4, location.Width - 9, location.Height - 9);
         }
+
+        if (icon != null)
+            g.DrawImage(icon, location.X + 5, location.Y + 5);
     }
 }

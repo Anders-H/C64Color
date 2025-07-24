@@ -8,7 +8,7 @@ namespace C64ColorControls;
 
 internal partial class ColorPickerPaletteDialog : Form
 {
-    private ColorButton[] _buttons;
+    private readonly ColorButton[] _buttons;
     public int ButtonIndex { get; set; }
     public ColorName CurrentColor { get; set; }
 
@@ -34,7 +34,7 @@ internal partial class ColorPickerPaletteDialog : Form
             _buttons[i] = new ColorButton(ColorPicker.Renderer, new Rectangle(x, y, buttonWidth, buttonHeight - 2), (ColorName)i);
 
             if (i == ButtonIndex)
-                _buttons[i].Selected = true;
+                _buttons[i].Selected = ButtonSelected.True;
 
             x += buttonWidth + 2;
 

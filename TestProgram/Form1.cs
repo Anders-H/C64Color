@@ -23,25 +23,25 @@ public partial class Form1 : Form
 
     private void Form1_Paint(object sender, PaintEventArgs e)
     {
-        _renderer.Render(e.Graphics, _resources, new Rectangle(50, 50, 50, 50), ColorName.Cyan, RendererFlags.None);
-        _renderer.Render(e.Graphics, _resources, new Rectangle(80, 80, 50, 50), ColorName.Red, RendererFlags.None | RendererFlags.Selected);
-        _renderer.Render(e.Graphics, _resources, new Rectangle(110, 110, 50, 50), ColorName.Violet, RendererFlags.Outline);
-        _renderer.Render(e.Graphics, _resources, new Rectangle(140, 140, 50, 50), ColorName.Blue, RendererFlags.Outline | RendererFlags.Selected);
-        _renderer.Render(e.Graphics, _resources, new Rectangle(170, 170, 50, 50), ColorName.LightRed, RendererFlags.Shadow);
-        _renderer.Render(e.Graphics, _resources, new Rectangle(200, 200, 50, 50), ColorName.Green, RendererFlags.Shadow | RendererFlags.Selected);
-        _renderer.Render(e.Graphics, _resources, new Rectangle(230, 230, 50, 50), ColorName.Violet, RendererFlags.Outline | RendererFlags.Shadow);
-        _renderer.Render(e.Graphics, _resources, new Rectangle(260, 260, 50, 50), ColorName.Blue, RendererFlags.Outline | RendererFlags.Shadow | RendererFlags.Selected);
+        _renderer.Render(e.Graphics, _resources, new Rectangle(50, 50, 50, 50), ColorName.Cyan, RendererFlags.None, null);
+        _renderer.Render(e.Graphics, _resources, new Rectangle(80, 80, 50, 50), ColorName.Red, RendererFlags.None | RendererFlags.Selected, null);
+        _renderer.Render(e.Graphics, _resources, new Rectangle(110, 110, 50, 50), ColorName.Violet, RendererFlags.Outline, null);
+        _renderer.Render(e.Graphics, _resources, new Rectangle(140, 140, 50, 50), ColorName.Blue, RendererFlags.Outline | RendererFlags.Selected, null);
+        _renderer.Render(e.Graphics, _resources, new Rectangle(170, 170, 50, 50), ColorName.LightRed, RendererFlags.Shadow, null);
+        _renderer.Render(e.Graphics, _resources, new Rectangle(200, 200, 50, 50), ColorName.Green, RendererFlags.Shadow | RendererFlags.Selected, null);
+        _renderer.Render(e.Graphics, _resources, new Rectangle(230, 230, 50, 50), ColorName.Violet, RendererFlags.Outline | RendererFlags.Shadow, null);
+        _renderer.Render(e.Graphics, _resources, new Rectangle(260, 260, 50, 50), ColorName.Blue, RendererFlags.Outline | RendererFlags.Shadow | RendererFlags.Selected, null);
         _button1.Render(e.Graphics, _resources);
         _button2.Render(e.Graphics, _resources);
     }
 
     private void Form1_MouseClick(object sender, MouseEventArgs e)
     {
-        if (_button1.HitTest(new Point(e.X, e.Y)))
-            _button1.Selected = !_button1.Selected;
+        //if (_button1.HitTest(new Point(e.X, e.Y)))
+        //    _button1.Selected = !_button1.Selected;
 
-        if (_button2.HitTest(new Point(e.X, e.Y)))
-            _button2.Selected = !_button2.Selected;
+        //if (_button2.HitTest(new Point(e.X, e.Y)))
+        //    _button2.Selected = !_button2.Selected;
 
         Invalidate();
     }

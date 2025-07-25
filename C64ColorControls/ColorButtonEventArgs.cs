@@ -6,16 +6,18 @@ namespace C64ColorControls;
 
 public class ColorButtonEventArgs : EventArgs
 {
-    public int ButtonIndex { get; }
-    public ColorName ColorName { get; }
-    public ButtonSelected IsSelected { get; }
+    public int ButtonIndexPrimary { get; }
+    public int ButtonIndexSecondary { get; }
+    public ColorName ColorNamePrimary { get; }
+    public ColorName ColorNameSecondary { get; }
     public bool IsMultiColor { get; }
 
-    public ColorButtonEventArgs(int buttonIndex, ColorName colorName, ButtonSelected isSelected, bool isMultiColor)
+    public ColorButtonEventArgs(int buttonIndexPrimary, int buttonIndexSecondary, ColorName colorNamePrimary, ColorName colorNameSecondary, bool isMultiColor)
     {
-        ButtonIndex = buttonIndex;
-        ColorName = colorName;
-        IsSelected = isSelected;
+        ButtonIndexPrimary = buttonIndexPrimary;
+        ButtonIndexSecondary = buttonIndexSecondary;
+        ColorNamePrimary = colorNamePrimary;
+        ColorNameSecondary = colorNameSecondary;
         IsMultiColor = isMultiColor;
     }
 }

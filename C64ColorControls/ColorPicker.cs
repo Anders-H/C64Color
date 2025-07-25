@@ -214,6 +214,43 @@ public partial class ColorPicker: UserControl
         Refresh();
     }
 
+    private void ColorPicker_MouseDoubleClick(object sender, MouseEventArgs e)
+    {
+        if (e.Button == MouseButtons.Left)
+        {
+            var b = GetButton(_selectedButtonIndex);
+
+            if (b == null)
+                return;
+
+            using var x = new ColorPickerPaletteDialog();
+            x.ButtonIndex = _selectedButtonIndex;
+            x.CurrentColor = b.Color;
+
+            if (x.ShowDialog(this) == DialogResult.OK)
+                b.Color = x.CurrentColor;
+        }
+        else if (e.Button == MouseButtons.Right)
+        {
+            var b = GetButton(_secondaryButtonIndex);
+
+            if (b == null)
+                return;
+
+            using var x = new ColorPickerPaletteDialog();
+            x.ButtonIndex = _secondaryButtonIndex;
+            x.CurrentColor = b.Color;
+
+            if (x.ShowDialog(this) == DialogResult.OK)
+                b.Color = x.CurrentColor;
+        }
+
+        Refresh();
+        var b1 = GetButton(_selectedButtonIndex);
+        var b2 = GetButton(_secondaryButtonIndex);
+        PaletteChanged?.Invoke(this, new ColorButtonEventArgs(_selectedButtonIndex, _secondaryButtonIndex, b1?.Color ?? ColorName.Black, b2?.Color ?? ColorName.Black, MultiColor));
+    }
+
     private void SelectButtonFromCoordinates(int x, int y, bool primary)
     {
         for (var i = 0; i < ButtonCount; i++)
@@ -234,8 +271,6 @@ public partial class ColorPicker: UserControl
     {
         if (primary)
         {
-            var oldSelectedIndex = _selectedButtonIndex;
-
             if (_button0 is { Selected: ButtonSelected.True })
                 _button0.Selected = ButtonSelected.False;
 
@@ -250,20 +285,9 @@ public partial class ColorPicker: UserControl
 
             b.Selected = ButtonSelected.True;
             _selectedButtonIndex = newSelectedIndex;
-            Refresh();
-
-            if (oldSelectedIndex == _selectedButtonIndex)
-                return;
-
-            var eventArgs = CreateColorButtonEventArgs();
-
-            if (eventArgs != null)
-                SelectedColorChanged?.Invoke(this, eventArgs);
         }
         else
         {
-            var oldSelectedIndex = _secondaryButtonIndex;
-
             if (_button0 is { Selected: ButtonSelected.Secondary })
                 _button0.Selected = ButtonSelected.False;
 
@@ -278,19 +302,13 @@ public partial class ColorPicker: UserControl
 
             b.Selected = ButtonSelected.Secondary;
             _secondaryButtonIndex = newSelectedIndex;
-            Refresh();
-
-            if (oldSelectedIndex == _secondaryButtonIndex)
-                return;
-
-            var eventArgs = CreateColorButtonEventArgs();
-
-            if (eventArgs != null)
-                SelectedColorChanged?.Invoke(this, eventArgs);
         }
 
         EnsureOneIsSelected(primary ? ButtonSelected.Secondary : ButtonSelected.True);
         Refresh();
+        var b1 = GetButton(_selectedButtonIndex);
+        var b2 = GetButton(_secondaryButtonIndex);
+        SelectedColorChanged?.Invoke(this, new ColorButtonEventArgs(_selectedButtonIndex, _secondaryButtonIndex, b1?.Color ?? ColorName.Black, b2?.Color ?? ColorName.Black, MultiColor));
     }
 
     private void EnsureOneIsSelected(ButtonSelected selected)
@@ -303,7 +321,14 @@ public partial class ColorPicker: UserControl
                 continue;
 
             if (b.Selected == selected)
+            {
+                if (selected == ButtonSelected.True)
+                    _selectedButtonIndex = i;
+                else if (selected == ButtonSelected.Secondary)
+                    _secondaryButtonIndex = i;
+
                 return;
+            }
         }
 
         for (var i = 0; i < ButtonCount; i++)
@@ -316,19 +341,16 @@ public partial class ColorPicker: UserControl
             if (b.Selected == ButtonSelected.False)
             {
                 b.Selected = selected;
+
+                if (selected == ButtonSelected.True)
+                    _selectedButtonIndex = i;
+                else if (selected == ButtonSelected.Secondary)
+                    _secondaryButtonIndex = i;
+
                 return;
             }
         }
 
         Refresh();
-    }
-
-    private ColorButtonEventArgs? CreateColorButtonEventArgs()
-    {
-        var button = GetButton(_selectedButtonIndex);
-     
-        return button == null
-            ? null
-            : new ColorButtonEventArgs(_selectedButtonIndex, button.Color, button.Selected, _multiColor);
     }
 }

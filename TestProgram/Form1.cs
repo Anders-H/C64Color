@@ -53,11 +53,11 @@ public partial class Form1 : Form
 
     private void colorPicker1_SelectedColorChanged(object sender, C64ColorControls.ColorButtonEventArgs e)
     {
-        MessageBox.Show($@"Selected color: {e.ColorName.ToString()}");
+        //MessageBox.Show($@"Selected color: {e.ColorNamePrimary.ToString()} (and {e.ColorNameSecondary.ToString()})");
     }
 
     private void colorPicker1_PaletteChanged(object sender, C64ColorControls.ColorButtonEventArgs e)
     {
-        MessageBox.Show($@"Palette: {e.ColorName.ToString()}");
+        //MessageBox.Show($@"Palette: {e.ColorNamePrimary.ToString()} (and {e.ColorNameSecondary.ToString()})");
     }
 }

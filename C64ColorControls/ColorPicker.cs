@@ -61,6 +61,12 @@ public partial class ColorPicker: UserControl
         InitializeComponent();
     }
 
+    public void GetSelectedButtons(out int primary, out int secondary)
+    {
+        primary = _selectedButtonIndex;
+        secondary = _secondaryButtonIndex;
+    }
+
     public void SetPaletteAsInt(int index, int color)
     {
         var b = GetButton(index);
